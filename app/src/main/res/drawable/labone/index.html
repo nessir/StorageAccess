@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Example 1</title>
+    <style>
+        html, body{
+            height: 100%;
+        }
+        #banner{
+            background-color: blue;
+            padding-top: 5%;
+            padding-left: 10%;
+            height: 30%;
+        }
+        #buttons{
+            margin-top: 1em;
+            padding-left: 1em;
+        }
+        #container{
+            width: 50px;
+            height: 50px;
+            position: relative;
+            background: yellow;
+        }
+        #animate{
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            background-color: red;
+        }
+
+    </style>
+  </head>
+  <body>
+    <h1 id="demo" onmouseover="changeHeader()" onmouseout="ResetHeader()">
+      Hello world
+    </h1>
+    <p>Welcome to the world of DOM, hope you like it</p>
+    <fieldset>
+      <button onclick="changeHeader()">Change Header</button>
+      <button onclick="changeColor()">Change Color</button>
+    </fieldset>
+    <div id="banner">
+        <h1>This is only the beginning ...</h1>
+    </div>
+    <div id="buttons">
+        <input type="button" onclick="changeBannerColor(true)" value="previous">
+        <input type="button" onclick="changeBannerColor(false)" value="next">
+    </div>
+    <p><button onclick="move()">Click Me</button></p>
+    <p><button onclick="moveUp()">Click</button></p>
+    <div class="" id="container">
+        <div class="" id="animate"></div>
+    </div>
+    <script>
+      let changed = false;
+      function changeHeader() {
+        if (!changed) {
+          document.getElementById("demo").innerHTML = "Powered by the DOM";
+          changed = true;
+        } else {
+          resetHeader();
+        }
+      }
+      
+      function resetHeader() {
+        document.getElementById("demo").innerHTML = "Hello World";
+        changed = false;
+      }
+      
+      let changedColor = false;    
+      function changeColor() {
+        if (!changedColor) {
+          document.body.style.backgroundColor = "blue";
+          document.body.style.color = "white";
+          changedColor = true;
+        } else {
+          document.body.style.backgroundColor = "white";
+          document.body.style.color = "black";
+          changedColor = false;
+        }
+      }
+      
+      let bannerColorIndex = 0;
+      let bannerColors = ["blue", "#CF4E1E", "#5CA0C1", "#6CA550", "#D2DD3E", "#800020", "#008080", "#FBCEB1"];
+      function changeBannerColor(isPrevious) {
+          if(isPrevious && bannerColorIndex > 0){
+              bannerColorIndex--;
+          }else if(!isPrevious && bannerColorIndex < bannerColors.length - 1){
+              bannerColorIndex++;
+          }
+          document.getElementById("banner").style.backgroundColor = bannerColors[bannerColorIndex];
+      }
+
+      let moveUp = false;
+      function move() {
+          var elem = document.getElementById("animate");
+          var pos = 0;
+          var id = setInterval(frame, 5);
+          function frame() {
+              if(pos == 350){
+                  clearInterval(id);
+              }else{
+                  pos++;
+                  elem.style.top = pos +"px";
+                  elem.style.left = pos +"px";
+              }
+          }
+      }
+    </script>
+  </body>
+</html>
